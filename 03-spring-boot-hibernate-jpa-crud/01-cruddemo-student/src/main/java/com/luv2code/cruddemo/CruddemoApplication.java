@@ -7,6 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootApplication
@@ -21,6 +22,8 @@ public class CruddemoApplication {
 		return runner -> {
 //			createStudent(studentDAO);
 
+			createMultipleStudents(studentDAO);
+
 //			readStudent(studentDAO);
 
 //			queryForStudents (studentDAO);
@@ -31,7 +34,7 @@ public class CruddemoApplication {
 
 //			deleteStudent(studentDAO);
 
-			deleteAllStudents(studentDAO);
+//			deleteAllStudents(studentDAO);
 		};
 	}
 
@@ -86,6 +89,18 @@ public class CruddemoApplication {
 
 		// display id of the  saved student
 		System.out.println("Saved student Generated id: " + tempStudent.getId());
+	}
+
+	private void createMultipleStudents (StudentDAO studentDAO) {
+		List<Student> students = List.of(
+                new Student("John", "Doe", "jhondoe@gmail.com"),
+                new Student("Mary", "Public", "marypublic@gmail.com"),
+                new Student("Bonita", "Apllebum", "bonitaapplebum@gmail.com")
+        );
+
+		for (Student student: students) {
+			studentDAO.save(student);
+		}
 	}
 
 	private void updateStudent (StudentDAO studentDAO) {
